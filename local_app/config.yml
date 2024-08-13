@@ -1,0 +1,39 @@
+application:
+  name: Raspi-camera_Controle
+  version: 2.0.0
+
+selenium:
+  #Windows
+  exec_path: " " #provide path of chromedriver here
+  profile_path: ' ' #provide the browser profile path which you want to use
+  browser_profile: ' ' #provide name of the profile
+
+  #linux
+  # exec_path: "/usr/lib/chromium-browser/chromedriver"
+  # profile_path: '/home/user/.config/chromium' #chnage this accordingly for linux
+  # browser_profile: 'Default'
+
+whatsapp:
+  url: "https://web.whatsapp.com"
+  def_sender: " " #provide sender whatsapp number here
+  def_msg: "default sender: Session started, wait for instruction !!!"
+  instruction: "You can use the following commands:\n(Please send a message withing 60 seconds)\n1. instashot : For instant picture without moving the camera\n2. video {duration} : For instant video of upto 60 seconds {eg. video 10}\n3. image_angle {angle} : For rotating the camera and taking an image {eg. image_angle 90}\n(please make sure to use signs(+ -) to rotate camera right or left)\n(90 will rotate the camera to an angle 90 in right)\n(-90 will rotate the camera to an angle 90 in left)\n4. 180 record : For taking an 180 degree video of surrounding with full camera rotation\n5. Exit : End the session"
+
+xpaths:
+  link_mobile: '//*[@id="app"]/div/div[2]/div[3]/div[1]/div/div/div[3]/div/span'
+  sender_box: '//*[@id="app"]/div/div[2]/div[3]/div[1]/div/div[3]/div[1]/div[2]/div/div/div/form/input'
+  code_box: '//*[@id="app"]/div/div[2]/div[3]/div[1]/div/div/div[2]/div/div/div/div[1]/span'
+  search_box: '//div[@contenteditable="true"][@data-tab="3"]'
+  message_box: '//div[@contenteditable="true"][@data-tab="10"]'
+  recent_msg_timestamp: '//*[@id="main"]/div[3]/div/div[2]/div[2]/div[16]/div/div/div[1]/div[1]/div[1]/div/div[2]/div/span'
+  attach_file: '//*[@id="main"]/footer/div[1]/div/span[2]/div/div[1]/div[2]'
+  select_file: '//*[@id="main"]/footer/div[1]/div/span[2]/div/div[1]/div[2]/div/span/div/ul/div/div[2]'
+  file_send: '//*[@id="app"]/div/div[2]/div[2]/div[2]/span/div/div/div/div[2]/div/div[2]/div[2]'
+
+location:
+  video_folder: ' ' #need to modify for the video folder
+  image_folder: ' ' #need to modify for the image folder
+
+network:
+  host: ' ' #provide raspberry-pi IP address
+  port: ' ' #port number simmilar to raspberry-pi

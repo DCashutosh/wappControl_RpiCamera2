@@ -1,0 +1,13 @@
+application:
+  name: Raspi-camera_Controle
+  version: 2.0.0
+
+
+location:
+  video_folder: ' ' #need to modify for the video folder
+  image_folder: ' ' #need to modify for the image folder
+
+tcp:
+  port: #provide communication port for sending files
+  host: '0.0.0.0' #change this for spcefic communication
+  
