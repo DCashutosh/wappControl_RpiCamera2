@@ -28,7 +28,7 @@ class ServoController:
         
         try:
             self.pwm.start(0)
-            self.set_angle(angle)
+            self.set_angle(-1*angle)
             time.sleep(5)
         finally:
             # Clean up
@@ -40,36 +40,52 @@ class ServoController:
         try:
             self.pwm.start(0)
             if(cmd == "180 degree"):
+
                 # Go to 0 degrees
                 print("Moving to 0 degrees")
                 self.set_angle(0)
+                time.sleep(2)
+
+                # Go to 45 degrees
+                print("Moving to 45 degrees")
+                self.set_angle(45)
                 time.sleep(2)
 
                 # Go to 90 degrees
                 print("Moving to 90 degrees")
                 self.set_angle(90)
-                time.sleep(5)
+                time.sleep(2)
 
-                # Go to 0 degrees
-                print("Moving to 0 degrees")
-                self.set_angle(0)
-                time.sleep(5)
-
-                # Go to -90 degrees
-                print("Moving to -90 degrees")
-                self.set_angle(-90)
-                time.sleep(5)
+                # Go to 45 degrees
+                print("Moving to 45 degrees")
+                self.set_angle(45)
+                time.sleep(2)
 
                 # Go to 0 degrees
                 print("Moving to 0 degrees")
                 self.set_angle(0)
                 time.sleep(2)
+
+                # Go to -45 degrees
+                print("Moving to -45 degrees")
+                self.set_angle(-45)
+                time.sleep(2)
                 
-            elif(cmd == "90 degree right"):
+                # Go to -90 degrees
+                print("Moving to -90 degrees")
+                self.set_angle(-90)
+                time.sleep(2)
+
+                # Go to -45 degrees
+                print("Moving to -45 degrees")
+                self.set_angle(-45)
+                time.sleep(2)
+
                 # Go to 0 degrees
                 print("Moving to 0 degrees")
                 self.set_angle(0)
-                time.sleep(5)
+                
+            elif(cmd == "90 degree right"):
 
                 # Go to 90 degrees
                 print("Moving to 90 degrees")
@@ -82,10 +98,6 @@ class ServoController:
                 time.sleep(5)
 
             elif(cmd == "90 degree left"):
-                # Go to 0 degrees
-                print("Moving to 0 degrees")
-                self.set_angle(0)
-                time.sleep(5)
 
                 # Go to -90 degrees
                 print("Moving to -90 degrees")

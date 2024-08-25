@@ -29,7 +29,7 @@ sClient = ServerClient()
 
 def processRequest(apps,cmd, img_counter, vdo_counter):
     # msg = "Processing Request !!!"
-    apps.send_msg("Processing Request !!!")
+    print("Inside the process request function.")
 
     if(cmd == "instashot"):
         
@@ -82,10 +82,11 @@ def processRequest(apps,cmd, img_counter, vdo_counter):
         apps.send_file(file_name)
         vdo_counter = vdo_counter+1
     
+    #For clossing the application
     elif(re.search("Exit",cmd)):
         sClient.send_message(cmd)
         apps.send_msg("!!! Session Ended : ALL SAVED FILES WILL BE DELETED !!!")
-        # time.sleep(15)
+        time.sleep(5)
         # osControl.clear_folder(Config.image_folder)
         # time.sleep(5)
         # osControl.clear_folder(Config.video_folder)
@@ -96,21 +97,41 @@ def processRequest(apps,cmd, img_counter, vdo_counter):
 
     return img_counter,vdo_counter
 
-def check_continue(cmd):
-    if(re.search("continue",cmd)):
+def check_continue(apps,cmd):
+    if(re.search("8998",cmd)):
         apps.send_msg("Please provide the next command")
         time.sleep(20)
     else:
-        sClient.send_message("Exit")
+        processRequest(apps,"Exit",0,0)
+
+
+def cnv_num_msg(apps,cmd, i_cnt, v_cnt):
+    apps.send_msg("Processing Request !!!")
+
+    if(cmd == "1"):
+        i_cnt, v_cnt = processRequest(apps,"instashot",i_cnt,v_cnt)
+    elif(cmd == "2"):
+        apps.send_msg("Please provide the duration from 5 to 60 seconds")
         time.sleep(15)
-        apps.send_msg("!!! Session Ended : ALL SAVED FILES WILL BE DELETED !!!")
-        # osControl.clear_folder(Config.image_folder)
-        time.sleep(5)
-        # osControl.clear_folder(Config.video_folder)
-        driver.quit()
+        duration = apps.read_msg().pop()
+        msg = "video"+duration
+        i_cnt, v_cnt = processRequest(apps,msg,i_cnt,v_cnt)
+    elif(cmd == "3"):
+        apps.send_msg("Please provide the angle from 180(Extreme Right) to -180(Extreme left) degrees")
+        time.sleep(15)
+        angle = apps.read_msg().pop()
+        msg = "image_angle"+angle
+        i_cnt, v_cnt = processRequest(apps,msg,i_cnt,v_cnt)
+    elif(cmd == "4"):
+        i_cnt, v_cnt = processRequest(apps,"180 record",i_cnt,v_cnt)
+    elif(cmd == "5"):
+        i_cnt, v_cnt = processRequest(apps,"Exit",i_cnt,v_cnt)
+    else:
+        i_cnt,v_cnt = processRequest(apps,cmd,i_cnt,v_cnt)
+    
+    return i_cnt,v_cnt
+
             
-
-
 
 #chrome-driver-setup
 options = webdriver.ChromeOptions()
@@ -156,7 +177,7 @@ time.sleep(5)
 apps.send_msg(Config.def_msg)
 time.sleep(2)
 apps.send_msg(Config.instruction)
-time.sleep(60)
+time.sleep(30)
 # cmd = apps.read_msg().pop()
 # print("command is : "+cmd)
 # time.sleep(10)
@@ -168,12 +189,12 @@ sClient.connect_to_server(Config.host,Config.port)
 while True:
     cmd = apps.read_msg().pop()
     print("command is : "+cmd)
-    img_cnt,vdo_cnt = processRequest(apps,cmd,img_cnt,vdo_cnt)
+    img_cnt,vdo_cnt = cnv_num_msg(apps,cmd,img_cnt,vdo_cnt)
     time.sleep(5)
-    apps.send_msg("Please type (continue) to continue the session")
+    apps.send_msg("Please type 8998 to continue the session")
     time.sleep(20)
     nxt_cmd = apps.read_msg().pop()
-    check_continue(nxt_cmd)
+    check_continue(apps,nxt_cmd)
 
 
 # text = apps.read_msg()

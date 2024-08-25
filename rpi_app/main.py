@@ -83,6 +83,22 @@ def processRequest(cmd, img_counter, vdo_counter, flag):
 
     return img_counter,vdo_counter,flag
 
+# def check_continue(cmd):
+#     if(re.search("continue",cmd)):
+#         serverControl.send_response("Please provide the next command")
+#         time.sleep(2)
+#         serverControl.send_response("For the sake of the loop")
+#         time.sleep(20)
+#         return False
+#     else:
+#         serverControl.send_response("!!! Session Ended : ALL SAVED FILES WILL BE DELETED !!!")
+#         time.sleep(15)
+#         osControl.clear_folder(Config.image_folder)
+#         time.sleep(5)
+#         osControl.clear_folder(Config.video_folder)
+#        return True
+            
+
 
 img_cnt = 0
 vdo_cnt = 0
@@ -98,6 +114,7 @@ try:
             msg = serverControl.handle_messages()
             if msg is None or msg == '':
                 print("No valid message received or message is empty. Waiting for the next message...")
+                time.sleep(20)
                 continue
             img_cnt, vdo_cnt, exit_flag = processRequest(msg, img_cnt, vdo_cnt, exit_flag)
 except socket.timeout:
@@ -105,9 +122,7 @@ except socket.timeout:
 except Exception as e:
     print(f"An unexpected error occurred: {e}")
 finally:
-    serverControl.close_server()
-
-            
+    serverControl.close_server()            
       
 
 
